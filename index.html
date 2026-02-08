@@ -39,7 +39,7 @@
 
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
 
@@ -50,14 +50,15 @@
 
         /* --- HERO SECTION --- */
         header {
-            height: 90vh;
+            /* FIXED: Uses min-height to prevent cutting off on small screens */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-            padding: 20px;
+            padding: 40px 20px;
             position: relative;
         }
 
@@ -70,6 +71,7 @@
             padding: 10px;
             margin-bottom: 30px;
             animation: float 4s ease-in-out infinite, pulseGlow 3s infinite;
+            z-index: 10;
         }
 
         .logo-container img { width: 100%; height: 100%; object-fit: contain; }
@@ -84,6 +86,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeUp 1s ease-out;
+            line-height: 1.2;
+            padding-bottom: 10px; /* Prevents text clipping */
         }
 
         p.subtitle {
@@ -100,6 +104,7 @@
             flex-wrap: wrap;
             justify-content: center;
             animation: fadeUp 1s ease-out 0.4s backwards;
+            margin-bottom: 20px;
         }
 
         /* --- APP LAUNCH CARDS --- */
@@ -235,13 +240,13 @@
         <p class="subtitle">An integrated digital ecosystem for real-time dispatching and fleet management.</p>
 
         <div class="cta-container">
-            <a href="/commandcenter2" class="app-card">
+            <a href="/dispatch" class="app-card">
                 <h3><span class="badge badge-dispatch">ADMIN</span> Command</h3>
                 <p>Create jobs, track drivers live, and manage the fleet from a centralized dashboard.</p>
                 <div class="btn-launch launch-dispatch">Open Command Center</div>
             </a>
 
-            <a href="/driverapp2" class="app-card">
+            <a href="/driver" class="app-card">
                 <h3><span class="badge badge-driver">FLEET</span> Driver App</h3>
                 <p>Receive routes, capture signatures, and sync status updates in real-time.</p>
                 <div class="btn-launch launch-driver">Open Driver Portal</div>
