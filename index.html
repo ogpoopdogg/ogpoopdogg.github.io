@@ -179,6 +179,7 @@
         .badge { font-size: 0.7rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
         .badge-dispatch { background: var(--brand-yellow); color: #000; }
         .badge-driver { background: var(--brand-green); color: #000; }
+        .badge-database { background: var(--brand-blue); color: #fff; }
 
         .btn-launch {
             display: inline-block;
@@ -196,6 +197,9 @@
 
         .launch-driver { background: #333; color: var(--brand-green); border: 1px solid var(--brand-green); }
         .app-card:hover .launch-driver { background: var(--brand-green); color: #000; }
+
+        .launch-database { background: #333; color: var(--brand-blue); border: 1px solid var(--brand-blue); }
+        .app-card:hover .launch-database { background: var(--brand-blue); color: #fff; }
 
 
         /* --- INSTRUCTIONS / MOCKUPS --- */
@@ -301,6 +305,12 @@
                 <p>Receive routes, capture signatures, and sync status updates in real-time.</p>
                 <div class="btn-launch launch-driver">Open Driver Portal</div>
             </a>
+
+            <a href="https://app.eandccourier.ca/database/" class="app-card">
+                <h3><span class="badge badge-database">DATA</span> Executive Grid</h3>
+                <p>Search historical records, generate backups, and audit pickup/delivery logs with precision filters.</p>
+                <div class="btn-launch launch-database">Open Database</div>
+            </a>
         </div>
     </header>
 
@@ -348,6 +358,31 @@
                     <span style="font-weight:900; color:var(--brand-blue);">SYNC</span>
                 </div>
                 <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
+            </div>
+        </div>
+
+        <div class="step-row reverse">
+            <div class="step-text">
+                <h2>4. Archive & Audit</h2>
+                <p>Every completed job is instantly archived in the <strong>Executive Grid</strong>. Admins can search, filter, and export detailed logs for billing and compliance.</p>
+            </div>
+            <div class="mockup-container">
+                <div class="ui-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <div style="background:#222; height:20px; margin-bottom:5px; border-bottom: 2px solid var(--brand-blue); display:flex; gap:5px; align-items:center; padding:0 5px;">
+                    <div style="width:20%; height:4px; background:#555;"></div>
+                    <div style="width:20%; height:4px; background:#555;"></div>
+                    <div style="width:20%; height:4px; background:#555;"></div>
+                    <div style="width:20%; height:4px; background:#555;"></div>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <div class="ui-row" style="width:90%;"></div>
+                    <div class="ui-row" style="width:95%; opacity:0.5;"></div>
+                    <div class="ui-row" style="width:85%;"></div>
+                    <div class="ui-row" style="width:60%; opacity:0.5;"></div>
+                </div>
+                <div style="position:absolute; bottom:15px; right:15px; background:var(--brand-blue); color:#fff; padding:4px 10px; border-radius:4px; font-size:0.7rem; font-weight:900; box-shadow:0 5px 15px rgba(0,0,0,0.5);">
+                    EXPORT DATA
+                </div>
             </div>
         </div>
 
