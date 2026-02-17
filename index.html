@@ -9,6 +9,7 @@
             --brand-yellow: #ffcc00;
             --brand-green: #00ff41;
             --brand-blue: #2196f3;
+            --brand-gold: #cca300;
             --bg-dark: #050505;
             --card-bg: #111111;
             --text-main: #ffffff;
@@ -180,6 +181,7 @@
         .badge-dispatch { background: var(--brand-yellow); color: #000; }
         .badge-driver { background: var(--brand-green); color: #000; }
         .badge-database { background: var(--brand-blue); color: #fff; }
+        .badge-customer { background: var(--brand-gold); color: #000; }
 
         .btn-launch {
             display: inline-block;
@@ -200,6 +202,9 @@
 
         .launch-database { background: #333; color: var(--brand-blue); border: 1px solid var(--brand-blue); }
         .app-card:hover .launch-database { background: var(--brand-blue); color: #fff; }
+
+        .launch-customer { background: #333; color: var(--brand-gold); border: 1px solid var(--brand-gold); }
+        .app-card:hover .launch-customer { background: var(--brand-gold); color: #000; }
 
 
         /* --- INSTRUCTIONS / MOCKUPS --- */
@@ -310,6 +315,12 @@
                 <h3><span class="badge badge-database">DATA</span> Executive Grid</h3>
                 <p>Search historical records, generate backups, and audit pickup/delivery logs with precision filters.</p>
                 <div class="btn-launch launch-database">Open Database</div>
+            </a>
+
+            <a href="https://app.eandccourier.ca/requestpickup/" class="app-card">
+                <h3><span class="badge badge-customer">CLIENT</span> Request Portal</h3>
+                <p>Submit pickup requests, define cargo details, and trigger instant dispatch notifications from the web.</p>
+                <div class="btn-launch launch-customer">Open Client Portal</div>
             </a>
         </div>
     </header>
