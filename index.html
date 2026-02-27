@@ -10,6 +10,7 @@
             --brand-green: #00ff41;
             --brand-blue: #2196f3;
             --brand-gold: #cca300;
+            --brand-dev: #00d4ff; /* NEW: Cyan for Developer Portal */
             --bg-dark: #050505;
             --card-bg: #111111;
             --text-main: #ffffff;
@@ -182,6 +183,7 @@
         .badge-driver { background: var(--brand-green); color: #000; }
         .badge-database { background: var(--brand-blue); color: #fff; }
         .badge-customer { background: var(--brand-gold); color: #000; }
+        .badge-dev { background: var(--brand-dev); color: #000; }
 
         .btn-launch {
             display: inline-block;
@@ -205,6 +207,9 @@
 
         .launch-customer { background: #333; color: var(--brand-gold); border: 1px solid var(--brand-gold); }
         .app-card:hover .launch-customer { background: var(--brand-gold); color: #000; }
+        
+        .launch-dev { background: #333; color: var(--brand-dev); border: 1px solid var(--brand-dev); }
+        .app-card:hover .launch-dev { background: var(--brand-dev); color: #000; }
 
 
         /* --- INSTRUCTIONS / MOCKUPS --- */
@@ -321,6 +326,12 @@
                 <h3><span class="badge badge-customer">CLIENT</span> Request Portal</h3>
                 <p>Submit pickup requests, define cargo details, and trigger instant dispatch notifications from the web.</p>
                 <div class="btn-launch launch-customer">Open Client Portal</div>
+            </a>
+
+            <a href="https://app.eandccourier.ca/developernotes/" class="app-card">
+                <h3><span class="badge badge-dev">DEV</span> Notes Portal</h3>
+                <p>A secure internal workspace to document technical logs, system updates, and internal communications.</p>
+                <div class="btn-launch launch-dev">Open Dev Portal</div>
             </a>
         </div>
     </header>
