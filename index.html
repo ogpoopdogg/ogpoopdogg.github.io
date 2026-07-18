@@ -121,39 +121,6 @@
             padding-bottom: 10px; /* Prevents text clipping */
         }
 
-        /* NEW: Under Construction Banner - less intense, one line */
-        .construction-banner {
-            width: 100%;
-            max-width: 600px;
-            margin: 8px auto 15px;
-            padding: 4px 15px;
-            background: repeating-linear-gradient(45deg, #000 0px, #000 12px, #FFD700 12px, #FFD700 24px);
-            color: #000;
-            font-size: 1rem;
-            font-weight: 700;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 2px solid #FFD700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-            position: relative;
-            z-index: 5;
-            text-shadow: 1px 1px 0 rgba(255,255,255,0.2);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .construction-banner::after {
-            content: "⚠️";
-            margin-left: 8px;
-            font-size: 1.2rem;
-        }
-        .construction-banner::before {
-            content: "⚠️";
-            margin-right: 8px;
-            font-size: 1.2rem;
-        }
-
         /* NEW: Subtitle Wrapper for Fading Text */
         .subtitle-wrapper {
             position: relative;
@@ -248,7 +215,7 @@
         .launch-planner { background: #333; color: #9b59b6; border: 1px solid #9b59b6; }
         .app-card:hover .launch-planner { background: #9b59b6; color: #fff; }
 
-        /* --- UNDER CONSTRUCTION OVERLAY FOR CARDS - lighter, no stripes --- */
+        /* --- UNDER CONSTRUCTION OVERLAY - top ribbon only --- */
         .under-construction {
             position: relative;
         }
@@ -257,45 +224,42 @@
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
+            height: 30px;
+            background: repeating-linear-gradient(45deg, #000 0px, #000 10px, #FFD700 10px, #FFD700 20px);
             z-index: 2;
             pointer-events: none;
+            border-radius: 16px 16px 0 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 16px;
             overflow: hidden;
         }
         .under-construction .construction-overlay::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.3);
-            z-index: 0;
+            content: none;
         }
         .under-construction .construction-overlay span {
             position: relative;
             z-index: 1;
             color: #000;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 800;
             text-transform: uppercase;
-            background: rgba(255,215,0,0.9);
-            padding: 4px 14px;
-            border-radius: 4px;
-            border: 2px solid #000;
-            box-shadow: 0 0 15px rgba(255,215,0,0.5);
+            background: rgba(255,215,0,0.95);
+            padding: 2px 12px;
+            border-radius: 3px;
+            border: 1px solid #000;
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
             letter-spacing: 1px;
             text-shadow: 1px 1px 0 rgba(255,255,255,0.2);
+            white-space: nowrap;
         }
         .under-construction .construction-overlay span::before {
             content: "⚠️ ";
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
         .under-construction .construction-overlay span::after {
             content: " ⚠️";
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
 
         /* --- INSTRUCTIONS / MOCKUPS --- */
@@ -372,8 +336,10 @@
             .step-row, .step-row.reverse { flex-direction: column; text-align: center; }
             .mockup-container { width: 100%; }
             .logo-container { width: 80px; height: 80px; }
-            .construction-banner { font-size: 0.8rem; padding: 4px 10px; max-width: 100%; }
-            .under-construction .construction-overlay span { font-size: 0.8rem; padding: 2px 10px; }
+            .under-construction .construction-overlay { height: 26px; }
+            .under-construction .construction-overlay span { font-size: 0.7rem; padding: 1px 8px; }
+            .under-construction .construction-overlay span::before,
+            .under-construction .construction-overlay span::after { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -385,8 +351,6 @@
         </div>
         <h1>E&C Logistics</h1>
         
-        <div class="construction-banner">Under Construction</div>
-
         <div class="subtitle-wrapper">
             <p class="subtitle">An integrated digital ecosystem for real-time dispatching and fleet management.</p>
             <p class="subtitle">Real-time GPS tracking and instant proof-of-delivery updates.</p>
@@ -428,7 +392,7 @@
                 <div class="btn-launch launch-dev">Open Dev Portal</div>
             </a>
 
-            <a href="routeplanner.html" class="app-card">
+            <a href="app.eandccourier.ca/routeplanner" class="app-card">
                 <h3><span class="badge badge-planner">ROUTE</span> Route Planner</h3>
                 <p>Plan, optimize, and visualize multi-stop routes with live GPS tracking and ETA calculations.</p>
                 <div class="btn-launch launch-planner">Open Route Planner</div>
