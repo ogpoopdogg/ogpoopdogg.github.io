@@ -121,6 +121,36 @@
             padding-bottom: 10px; /* Prevents text clipping */
         }
 
+        /* NEW: Under Construction Banner */
+        .construction-banner {
+            width: 100%;
+            max-width: 800px;
+            margin: 10px auto 20px;
+            padding: 12px 20px;
+            background: repeating-linear-gradient(45deg, #000 0px, #000 20px, #FFD700 20px, #FFD700 40px);
+            color: #000;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border: 4px solid #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            position: relative;
+            z-index: 5;
+            text-shadow: 2px 2px 0 rgba(255,255,255,0.3);
+        }
+        .construction-banner::after {
+            content: "⚠️";
+            margin-left: 15px;
+            font-size: 2rem;
+        }
+        .construction-banner::before {
+            content: "⚠️";
+            margin-right: 15px;
+            font-size: 2rem;
+        }
+
         /* NEW: Subtitle Wrapper for Fading Text */
         .subtitle-wrapper {
             position: relative;
@@ -184,6 +214,7 @@
         .badge-database { background: var(--brand-blue); color: #fff; }
         .badge-customer { background: var(--brand-gold); color: #000; }
         .badge-dev { background: var(--brand-dev); color: #000; }
+        .badge-planner { background: #9b59b6; color: #fff; }
 
         .btn-launch {
             display: inline-block;
@@ -211,6 +242,58 @@
         .launch-dev { background: #333; color: var(--brand-dev); border: 1px solid var(--brand-dev); }
         .app-card:hover .launch-dev { background: var(--brand-dev); color: #000; }
 
+        .launch-planner { background: #333; color: #9b59b6; border: 1px solid #9b59b6; }
+        .app-card:hover .launch-planner { background: #9b59b6; color: #fff; }
+
+        /* --- UNDER CONSTRUCTION OVERLAY FOR CARDS --- */
+        .under-construction {
+            position: relative;
+        }
+        .under-construction .construction-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 2;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .under-construction .construction-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, #000 0px, #000 15px, #FFD700 15px, #FFD700 30px);
+            opacity: 0.85;
+            z-index: 0;
+        }
+        .under-construction .construction-overlay span {
+            position: relative;
+            z-index: 1;
+            color: #000;
+            font-size: 1.4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            transform: rotate(-15deg);
+            background: rgba(255,255,255,0.9);
+            padding: 6px 18px;
+            border-radius: 4px;
+            border: 3px solid #000;
+            box-shadow: 0 0 20px rgba(255,215,0,0.8);
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+        }
+        .under-construction .construction-overlay span::before {
+            content: "⚠️ ";
+        }
+        .under-construction .construction-overlay span::after {
+            content: " ⚠️";
+        }
 
         /* --- INSTRUCTIONS / MOCKUPS --- */
         .workflow-section {
@@ -286,6 +369,8 @@
             .step-row, .step-row.reverse { flex-direction: column; text-align: center; }
             .mockup-container { width: 100%; }
             .logo-container { width: 80px; height: 80px; }
+            .construction-banner { font-size: 1.2rem; padding: 8px 12px; }
+            .under-construction .construction-overlay span { font-size: 1rem; padding: 4px 12px; }
         }
     </style>
 </head>
@@ -297,6 +382,8 @@
         </div>
         <h1>E&C Logistics</h1>
         
+        <div class="construction-banner">Under Construction</div>
+
         <div class="subtitle-wrapper">
             <p class="subtitle">An integrated digital ecosystem for real-time dispatching and fleet management.</p>
             <p class="subtitle">Real-time GPS tracking and instant proof-of-delivery updates.</p>
@@ -304,25 +391,29 @@
         </div>
 
         <div class="cta-container">
-            <a href="/commandcenter2" class="app-card">
+            <a href="/commandcenter2" class="app-card under-construction">
+                <div class="construction-overlay"><span>Under Construction</span></div>
                 <h3><span class="badge badge-dispatch">ADMIN</span> Command</h3>
                 <p>Create jobs, track drivers live, and manage the fleet from a centralized dashboard.</p>
                 <div class="btn-launch launch-dispatch">Open Command Center</div>
             </a>
 
-            <a href="/driverapp2" class="app-card">
+            <a href="/driverapp2" class="app-card under-construction">
+                <div class="construction-overlay"><span>Under Construction</span></div>
                 <h3><span class="badge badge-driver">FLEET</span> Driver App</h3>
                 <p>Receive routes, capture signatures, and sync status updates in real-time.</p>
                 <div class="btn-launch launch-driver">Open Driver Portal</div>
             </a>
 
-            <a href="https://app.eandccourier.ca/database/" class="app-card">
+            <a href="https://app.eandccourier.ca/database/" class="app-card under-construction">
+                <div class="construction-overlay"><span>Under Construction</span></div>
                 <h3><span class="badge badge-database">DATA</span> Executive Grid</h3>
                 <p>Search historical records, generate backups, and audit pickup/delivery logs with precision filters.</p>
                 <div class="btn-launch launch-database">Open Database</div>
             </a>
 
-            <a href="https://app.eandccourier.ca/requestpickup/" class="app-card">
+            <a href="https://app.eandccourier.ca/requestpickup/" class="app-card under-construction">
+                <div class="construction-overlay"><span>Under Construction</span></div>
                 <h3><span class="badge badge-customer">CLIENT</span> Request Portal</h3>
                 <p>Submit pickup requests, define cargo details, and trigger instant dispatch notifications from the web.</p>
                 <div class="btn-launch launch-customer">Open Client Portal</div>
@@ -332,6 +423,12 @@
                 <h3><span class="badge badge-dev">DEV</span> Notes Portal</h3>
                 <p>A secure internal workspace to document technical logs, system updates, and internal communications.</p>
                 <div class="btn-launch launch-dev">Open Dev Portal</div>
+            </a>
+
+            <a href="routeplanner.html" class="app-card">
+                <h3><span class="badge badge-planner">ROUTE</span> Route Planner</h3>
+                <p>Plan, optimize, and visualize multi-stop routes with live GPS tracking and ETA calculations.</p>
+                <div class="btn-launch launch-planner">Open Route Planner</div>
             </a>
         </div>
     </header>
