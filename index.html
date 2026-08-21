@@ -185,6 +185,7 @@
         .badge-customer { background: var(--brand-gold); color: #000; }
         .badge-dev { background: var(--brand-dev); color: #000; }
         .badge-planner { background: #9b59b6; color: #fff; }
+        .badge-calc { background: #ff6b6b; color: #fff; }
 
         .btn-launch {
             display: inline-block;
@@ -214,6 +215,9 @@
 
         .launch-planner { background: #333; color: #9b59b6; border: 1px solid #9b59b6; }
         .app-card:hover .launch-planner { background: #9b59b6; color: #fff; }
+
+        .launch-calc { background: #333; color: #ff6b6b; border: 1px solid #ff6b6b; }
+        .app-card:hover .launch-calc { background: #ff6b6b; color: #000; }
 
         /* --- UNDER CONSTRUCTION OVERLAY - top ribbon only --- */
         .under-construction {
@@ -396,6 +400,12 @@
                 <h3><span class="badge badge-planner">ROUTE</span> Route Planner</h3>
                 <p>Plan, optimize, and visualize multi-stop routes with live GPS tracking and ETA calculations.</p>
                 <div class="btn-launch launch-planner">Open Route Planner</div>
+            </a>
+
+            <a href="calc.html" class="app-card">
+                <h3><span class="badge badge-calc">CALC</span> Freight Calculator</h3>
+                <p>Calculate shipping costs instantly by comparing actual weight vs dimensional weight. Includes a per-box helper and history log.</p>
+                <div class="btn-launch launch-calc">Open Calculator</div>
             </a>
         </div>
     </header>
