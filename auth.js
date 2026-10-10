@@ -15,19 +15,14 @@ export function isAllowedEmail(email) {
 
 const auth = isConfigured ? getAuth(initializeApp(firebaseConfig)) : null;
 
-// Resolves once with the signed-in allowed user, or null. Any other signed-in account is signed out.
+// Resolves once with the signed-in allowed user, or null. Other accounts are left signed in,
+// since the tool pages on this domain share the same Firebase session.
 export function currentAllowedUser() {
     if (!auth) return Promise.resolve(null);
     return new Promise(function (resolve) {
         const stop = onAuthStateChanged(auth, function (user) {
             stop();
-            if (user && isAllowedEmail(user.email)) {
-                resolve(user);
-            } else if (user) {
-                signOut(auth).finally(function () { resolve(null); });
-            } else {
-                resolve(null);
-            }
+            resolve(user && isAllowedEmail(user.email) ? user : null);
         });
     });
 }
