@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#101214">
+    <meta name="robots" content="noindex">
+    <title>Sign In &middot; E&amp;C Courier</title>
+    <link rel="icon" href="../icon-512.png">
+    <link rel="apple-touch-icon" href="../icon-512.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --asphalt: #101214;
+            --asphalt-2: #171a1d;
+            --asphalt-3: #1f2327;
+            --shoulder: rgba(255, 255, 255, 0.16);
+            --text: #eef0f2;
+            --muted: #9aa1a9;
+            --dim: #6b727a;
+            --yellow: #ffcc00;
+            --danger: #ff6b5e;
+
+            --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+            --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+            --page-pad: clamp(20px, 5vw, 64px);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { background: var(--asphalt); }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: env(safe-area-inset-top, 0px) var(--page-pad) env(safe-area-inset-bottom, 0px);
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            line-height: 1.55;
+            color: var(--text);
+            background:
+                radial-gradient(1200px 600px at 85% -10%, rgba(255, 204, 0, 0.06), transparent 60%),
+                var(--asphalt);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 22px 0;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            object-fit: contain;
+            background: #000;
+            box-shadow: 0 0 0 1px rgba(255, 204, 0, 0.45);
+        }
+
+        .brand-name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.35rem;
+            letter-spacing: 0.01em;
+        }
+
+        main {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            padding: 24px 0 64px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--asphalt-2);
+            border-top: 2px solid var(--shoulder);
+            border-bottom: 2px solid var(--shoulder);
+            position: relative;
+            padding: clamp(28px, 5vw, 40px);
+            opacity: 0;
+            transform: translateY(14px);
+            animation: rise 0.8s var(--ease-out) 0.1s forwards;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: var(--yellow);
+        }
+
+        @keyframes rise { to { opacity: 1; transform: none; } }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(2.5rem, 8vw, 3.25rem);
+            line-height: 0.95;
+            margin-bottom: 8px;
+        }
+
+        .sub { color: var(--muted); margin-bottom: 28px; }
+
+        label {
+            display: block;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            height: 48px;
+            padding: 0 14px;
+            margin-bottom: 18px;
+            border: 0;
+            border-radius: 10px;
+            font: inherit;
+            color: var(--text);
+            background: var(--asphalt-3);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+            transition: box-shadow 0.2s var(--ease-out);
+        }
+
+        input:focus { outline: none; box-shadow: inset 0 0 0 2px var(--yellow); }
+
+        button {
+            width: 100%;
+            height: 50px;
+            margin-top: 6px;
+            border: 0;
+            border-radius: 10px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.02em;
+            color: #111;
+            background: var(--yellow);
+            cursor: pointer;
+            transition: transform 0.2s var(--ease-out), opacity 0.2s;
+        }
+
+        button:hover { transform: translateY(-1px); }
+        button:active { transform: translateY(1px); }
+        button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+        button:disabled { opacity: 0.55; cursor: progress; transform: none; }
+
+        .msg {
+            min-height: 1.55em;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            color: var(--danger);
+        }
+
+        footer {
+            padding: 24px 0 32px;
+            color: var(--dim);
+            font-size: 0.9rem;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-delay: 0s !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="brand">
+        <img src="../icon-512.png" alt="" width="42" height="42">
+        <span class="brand-name">E&amp;C Courier</span>
+    </header>
+
+    <main>
+        <form class="card" id="loginForm" novalidate>
+            <h1>Staff Sign In</h1>
+            <p class="sub">Sign in to open the logistics apps.</p>
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="username" inputmode="email" autocapitalize="off" spellcheck="false" required>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+            <button type="submit" id="submitBtn" disabled>Sign in</button>
+            <p class="msg" id="msg" role="alert" aria-live="assertive"></p>
+        </form>
+    </main>
+
+    <footer>&copy; E&amp;C Courier</footer>
+
+    <script type="module">
+        const form = document.getElementById("loginForm");
+        const btn = document.getElementById("submitBtn");
+        const msg = document.getElementById("msg");
+        const HOME = "../";
+
+        const MESSAGES = {
+            "app/not-configured": "Sign-in isn't set up yet. Add the Firebase config to firebase-config.js.",
+            "app/not-allowed": "This account isn't authorized to use the staff tools.",
+            "auth/invalid-credential": "Incorrect email or password.",
+            "auth/wrong-password": "Incorrect email or password.",
+            "auth/user-not-found": "Incorrect email or password.",
+            "auth/invalid-email": "Enter a valid email address.",
+            "auth/user-disabled": "This account has been disabled.",
+            "auth/too-many-requests": "Too many attempts. Wait a few minutes and try again.",
+            "auth/network-request-failed": "Network error. Check your connection and try again."
+        };
+
+        let authApi;
+        try {
+            authApi = await import("../auth.js");
+        } catch (e) {
+            msg.textContent = "Couldn't load sign-in. Check your connection and reload.";
+        }
+
+        if (authApi) {
+            if (!authApi.isConfigured) {
+                msg.textContent = MESSAGES["app/not-configured"];
+            } else if (await authApi.currentAllowedUser()) {
+                window.location.replace(HOME);
+            }
+            btn.disabled = false;
+
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const email = form.email.value;
+                const password = form.password.value;
+                if (!email || !password) {
+                    msg.textContent = "Enter your email and password.";
+                    return;
+                }
+                msg.textContent = "";
+                btn.disabled = true;
+                btn.textContent = "Signing in…";
+                try {
+                    await authApi.signIn(email, password);
+                    window.location.replace(HOME);
+                } catch (err) {
+                    msg.textContent = MESSAGES[err && err.code] || "Sign-in failed. Please try again.";
+                    btn.disabled = false;
+                    btn.textContent = "Sign in";
+                    form.password.value = "";
+                    form.password.focus();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
