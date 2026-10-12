@@ -294,6 +294,7 @@
         .road > li:nth-child(1) .lane { animation-delay: 0.55s; }
         .road > li:nth-child(2) .lane { animation-delay: 0.7s; }
         .road > li:nth-child(3) .lane { animation-delay: 0.85s; }
+        .road > li:nth-child(4) .lane { animation-delay: 1s; }
 
         @keyframes paintLane { to { clip-path: inset(0 0 0 0); } }
 
@@ -606,6 +607,28 @@
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a class="lane" href="timeclock/admin.html" data-key="t">
+                        <span class="lane-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="13" r="8"/>
+                                <path d="M12 9v4l2.5 2"/>
+                                <path d="M9 2h6M12 2v3"/>
+                            </svg>
+                        </span>
+                        <span class="lane-body">
+                            <span class="lane-title">Time Clock</span>
+                            <span class="lane-desc">See who's on the clock, edit punches, set schedules, and export weekly timesheets.</span>
+                        </span>
+                        <span class="lane-key" aria-hidden="true"><kbd>T</kbd></span>
+                        <span class="lane-go">
+                            <span class="go-label">Open Time Clock Admin</span>
+                            <span class="go-dot" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                            </span>
+                        </span>
+                    </a>
+                </li>
             </ul>
         </section>
     </main>
@@ -647,7 +670,7 @@
                 setInterval(tick, 60000);
             }, (60 - new Date().getSeconds()) * 1000);
 
-            // Keyboard shortcuts: R, H, N
+            // Keyboard shortcuts: R, H, N, T
             var lanes = {};
             Array.prototype.forEach.call(document.querySelectorAll(".lane[data-key]"), function (el) {
                 lanes[el.getAttribute("data-key")] = el;
