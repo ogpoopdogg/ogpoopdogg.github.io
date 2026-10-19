@@ -9,5 +9,5 @@ export const firebaseConfig = {
     appId: "1:1067680083511:android:22d1eb3757302492bd19b2"
 };
 
-// The only account allowed into the staff tools.
-export const ALLOWED_EMAIL = "justin@ec.com";
+// The accounts allowed into the staff tools.
+export const ALLOWED_EMAILS = ["justin@ec.com", "desirae@ec.com", "celeste@ec.com"];
