@@ -197,37 +197,6 @@
             font-size: 0.95rem;
         }
 
-        /* ---------- Filter ---------- */
-        .filter {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding-bottom: 18px;
-        }
-
-        .chip {
-            appearance: none;
-            border: 1px solid var(--line-strong);
-            background: transparent;
-            border-radius: 999px;
-            padding: 6px 14px;
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.03em;
-            color: var(--muted);
-            cursor: pointer;
-            transition: color 0.2s, border-color 0.2s, background-color 0.2s;
-        }
-
-        .chip:hover, .chip:focus-visible { color: var(--text); border-color: var(--text); outline: none; }
-
-        .chip[aria-pressed="true"] {
-            background: var(--yellow);
-            border-color: var(--yellow);
-            color: #111;
-        }
-
         /* ---------- App grid ---------- */
         .apps {
             list-style: none;
@@ -236,8 +205,6 @@
             gap: 16px;
             padding-bottom: 40px;
         }
-
-        .apps > li[hidden] { display: none; }
 
         .app {
             position: relative;
@@ -403,11 +370,6 @@
             transform: translateX(4px);
         }
 
-        .empty {
-            color: var(--muted);
-            padding: 24px 0 48px;
-        }
-
         /* ---------- Footer ---------- */
         footer {
             margin-top: auto;
@@ -485,15 +447,8 @@
         </section>
 
         <section class="wrap" aria-label="Staff apps">
-            <div class="filter" role="group" aria-label="Filter apps">
-                <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
-                <button type="button" class="chip" data-filter="dispatch" aria-pressed="false">Dispatch</button>
-                <button type="button" class="chip" data-filter="customers" aria-pressed="false">Customers</button>
-                <button type="button" class="chip" data-filter="staff" aria-pressed="false">Staff &amp; fleet</button>
-            </div>
-
             <ul class="apps" id="apps">
-                <li data-group="customers">
+                <li>
                     <a class="app" style="--i:0" href="https://app.eandccourier.ca/requestpickup/" data-key="p">
                         <span class="app-head">
                             <span class="app-icon" aria-hidden="true">
@@ -516,7 +471,7 @@
                         </span>
                     </a>
                 </li>
-                <li data-group="dispatch">
+                <li>
                     <a class="app" style="--i:1" href="https://app.eandccourier.ca/routehelper/" data-key="h">
                         <span class="app-head">
                             <span class="app-icon" aria-hidden="true">
@@ -538,7 +493,7 @@
                         </span>
                     </a>
                 </li>
-                <li data-group="dispatch">
+                <li>
                     <a class="app" style="--i:2" href="https://app.eandccourier.ca/RouteWatcher/" data-key="w">
                         <span class="app-head">
                             <span class="app-icon" aria-hidden="true">
@@ -560,7 +515,7 @@
                         </span>
                     </a>
                 </li>
-                <li data-group="dispatch">
+                <li>
                     <a class="app" style="--i:3" href="https://app.eandccourier.ca/calculator/" data-key="c">
                         <span class="app-head">
                             <span class="app-icon" aria-hidden="true">
@@ -582,7 +537,7 @@
                         </span>
                     </a>
                 </li>
-                <li data-group="staff">
+                <li>
                     <a class="app" style="--i:4" href="https://app.eandccourier.ca/timeclock/admin.html" data-key="t">
                         <span class="app-head">
                             <span class="app-icon" aria-hidden="true">
@@ -604,7 +559,7 @@
                         </span>
                     </a>
                 </li>
-                <li data-group="staff">
+                <li>
                     <a class="app" style="--i:5" href="https://app.eandccourier.ca/garage/" data-key="g">
                         <span class="app-head">
                             <span class="app-icon" aria-hidden="true">
@@ -624,7 +579,7 @@
                         </span>
                     </a>
                 </li>
-                <li data-group="staff">
+                <li>
                     <a class="app" style="--i:6" href="https://app.eandccourier.ca/developernotes/" data-key="n">
                         <span class="app-head">
                             <span class="app-icon" aria-hidden="true">
@@ -652,7 +607,6 @@
 
     <footer class="wrap">
         <span>&copy; <span id="year">2026</span> E&amp;C Courier</span>
-        <span>Brandon, MB</span>
     </footer>
 
     <script>
@@ -692,19 +646,6 @@
                 tick();
                 setInterval(tick, 60000);
             }, (60 - new Date().getSeconds()) * 1000);
-
-            // Filter chips
-            var chips = document.querySelectorAll(".chip[data-filter]");
-            var items = document.querySelectorAll("#apps > li");
-            Array.prototype.forEach.call(chips, function (chip) {
-                chip.addEventListener("click", function () {
-                    var f = chip.getAttribute("data-filter");
-                    Array.prototype.forEach.call(chips, function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
-                    Array.prototype.forEach.call(items, function (li) {
-                        li.hidden = f !== "all" && li.getAttribute("data-group") !== f;
-                    });
-                });
-            });
 
             // Keyboard shortcuts: each app's data-key
             var apps = {};
