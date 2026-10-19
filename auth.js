@@ -5,17 +5,19 @@ import {
     signInWithEmailAndPassword,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { firebaseConfig, ALLOWED_EMAIL } from "./firebase-config.js";
+import { firebaseConfig, ALLOWED_EMAILS } from "./firebase-config.js";
 
 export const isConfigured = !/REPLACE_WITH/.test(JSON.stringify(firebaseConfig));
 
 export function isAllowedEmail(email) {
-    return typeof email === "string" && email.trim().toLowerCase() === ALLOWED_EMAIL.toLowerCase();
+    if (typeof email !== "string") return false;
+    const e = email.trim().toLowerCase();
+    return ALLOWED_EMAILS.some(function (a) { return a.toLowerCase() === e; });
 }
 
 const auth = isConfigured ? getAuth(initializeApp(firebaseConfig)) : null;
 
-// Resolves once with the signed-in allowed user, or null. Other accounts are left signed in,
+// Resolves once with a signed-in allowed user, or null. Other accounts are left signed in,
 // since the tool pages on this domain share the same Firebase session.
 export function currentAllowedUser() {
     if (!auth) return Promise.resolve(null);
