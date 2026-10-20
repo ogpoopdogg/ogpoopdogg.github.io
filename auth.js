@@ -29,11 +29,48 @@ export function currentAllowedUser() {
     });
 }
 
+// Failed and refused sign-ins are reported to the E&C security log (the Security section of the
+// usage page). Firebase runs no server code when a password is wrong, so the page has to say so.
+// The server adds the real IP address and checks the sign-in token sent with a refusal. Only the
+// error code is sent, never the password. A report never blocks a sign-in, and is dropped if it
+// can't be sent.
+const SECURITY_REPORT_URL = "https://us-central1-eandccourier-36fcc.cloudfunctions.net/auditSignInReport";
+
+function sendReport(report) {
+    try {
+        const body = JSON.stringify(Object.assign({ app: "portal", at: Date.now(), page: location.pathname }, report));
+        // text/plain needs no CORS preflight, and a beacon is still sent when the page closes
+        if (navigator.sendBeacon && navigator.sendBeacon(SECURITY_REPORT_URL, new Blob([body], { type: "text/plain" }))) return;
+        fetch(SECURITY_REPORT_URL, { method: "POST", mode: "no-cors", keepalive: true, body }).catch(function () {});
+    } catch (e) { /* never get in the way of signing in */ }
+}
+
+function reportFailed(email, code) {
+    if (code === "auth/network-request-failed") return; // nothing reaches the server anyway
+    sendReport({ kind: "failed", email: String(email || "").trim().toLowerCase().slice(0, 200), code: String(code || "unknown") });
+}
+
+async function reportRefused(user, reason) {
+    let idToken = null;
+    try { idToken = await user.getIdToken(); } catch (e) { /* sent without it; the server marks it unverified */ }
+    sendReport({ kind: "refused", email: String(user.email || "").toLowerCase().slice(0, 200), reason, idToken });
+}
+
 export async function signIn(email, password) {
     if (!auth) throw Object.assign(new Error("Firebase is not configured."), { code: "app/not-configured" });
-    if (!isAllowedEmail(email)) throw Object.assign(new Error("This account is not authorized."), { code: "app/not-allowed" });
-    const cred = await signInWithEmailAndPassword(auth, email.trim(), password);
+    if (!isAllowedEmail(email)) {
+        reportFailed(email, "app/not-allowed");
+        throw Object.assign(new Error("This account is not authorized."), { code: "app/not-allowed" });
+    }
+    let cred;
+    try {
+        cred = await signInWithEmailAndPassword(auth, email.trim(), password);
+    } catch (err) {
+        reportFailed(email, err && err.code);
+        throw err;
+    }
     if (!isAllowedEmail(cred.user.email)) {
+        await reportRefused(cred.user, "Not on the allowed list");
         await signOut(auth);
         throw Object.assign(new Error("This account is not authorized."), { code: "app/not-allowed" });
     }
