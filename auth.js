@@ -56,6 +56,13 @@ async function reportRefused(user, reason) {
     sendReport({ kind: "refused", email: String(user.email || "").toLowerCase().slice(0, 200), reason, idToken });
 }
 
+// A sign-in that worked, so the security log can show which app it was (Firebase can't tell the server).
+function reportSignedIn(user) {
+    user.getIdToken().then(function (idToken) {
+        sendReport({ kind: "signedin", email: String(user.email || "").toLowerCase().slice(0, 200), idToken });
+    }).catch(function () {});
+}
+
 export async function signIn(email, password) {
     if (!auth) throw Object.assign(new Error("Firebase is not configured."), { code: "app/not-configured" });
     if (!isAllowedEmail(email)) {
@@ -74,6 +81,7 @@ export async function signIn(email, password) {
         await signOut(auth);
         throw Object.assign(new Error("This account is not authorized."), { code: "app/not-allowed" });
     }
+    reportSignedIn(cred.user);
     return cred.user;
 }
 
