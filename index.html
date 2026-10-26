@@ -14,6 +14,7 @@
             --asphalt-2: #171a1d;
             --line: rgba(255, 255, 255, 0.09);
             --muted: #9aa1a9;
+            --text: #eef0f2;
             --yellow: #ffcc00;
             --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -57,15 +58,31 @@
 
         .app svg { width: 46%; height: 46%; }
 
-        .app:hover, .app:focus-visible {
+        .apps a:active .app { transform: scale(0.96); }
+
+        .apps a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .app-name {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.95rem, 3.6vw, 1.1rem);
+            color: var(--text);
+        }
+
+        .apps a:hover .app, .apps a:focus-visible .app {
             background: var(--yellow);
             border-color: var(--yellow);
             color: #111;
             transform: translateY(-3px);
-            outline: none;
         }
 
-        .app:active { transform: scale(0.96); }
+        .apps a:focus-visible { outline: none; }
 
         .signout {
             position: fixed;
@@ -105,26 +122,35 @@
     <main>
         <ul class="apps">
             <li>
-                <a class="app" href="https://app.eandccourier.ca/routehelper/" aria-label="Route Helper" title="Route Helper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M12 21.5s-7-6.2-7-11.5a7 7 0 0 1 14 0c0 5.3-7 11.5-7 11.5z"/>
-                        <circle cx="12" cy="10" r="2.6"/>
-                    </svg>
+                <a href="https://app.eandccourier.ca/routehelper/">
+                    <span class="app" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 21.5s-7-6.2-7-11.5a7 7 0 0 1 14 0c0 5.3-7 11.5-7 11.5z"/>
+                            <circle cx="12" cy="10" r="2.6"/>
+                        </svg>
+                    </span>
+                    <span class="app-name">Route Helper</span>
                 </a>
             </li>
             <li>
-                <a class="app" href="https://app.eandccourier.ca/garage/" aria-label="Garage" title="Garage">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.8 1.8 0 0 0 2.5 2.5l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.4 2.4-2.3-.4-.4-2.3z"/>
-                    </svg>
+                <a href="https://app.eandccourier.ca/garage/">
+                    <span class="app" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.8 1.8 0 0 0 2.5 2.5l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.4 2.4-2.3-.4-.4-2.3z"/>
+                        </svg>
+                    </span>
+                    <span class="app-name">Garage</span>
                 </a>
             </li>
             <li>
-                <a class="app" href="https://app.eandccourier.ca/timeclock/admin.html" aria-label="Time Clock" title="Time Clock">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="9"/>
-                        <path d="M12 7v5l3 2"/>
-                    </svg>
+                <a href="https://app.eandccourier.ca/timeclock/admin.html">
+                    <span class="app" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M12 7v5l3 2"/>
+                        </svg>
+                    </span>
+                    <span class="app-name">Timeclock</span>
                 </a>
             </li>
         </ul>
