@@ -8,29 +8,14 @@
     <title>E&amp;C Courier Staff Tools</title>
     <link rel="icon" href="icon-512.png">
     <link rel="apple-touch-icon" href="icon-512.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --asphalt: #101214;
             --asphalt-2: #171a1d;
-            --asphalt-3: #1f2327;
             --line: rgba(255, 255, 255, 0.09);
-            --line-strong: rgba(255, 255, 255, 0.16);
-            --text: #eef0f2;
             --muted: #9aa1a9;
-            --dim: #6b727a;
             --yellow: #ffcc00;
-            --yellow-soft: rgba(255, 204, 0, 0.10);
-
-            --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
-            --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-
             --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-            --page-pad: clamp(16px, 4vw, 48px);
-            --max: 1200px;
-            --radius: 18px;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,639 +24,111 @@
 
         body {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding-top: env(safe-area-inset-top, 0px);
-            padding-bottom: env(safe-area-inset-bottom, 0px);
-            font-family: var(--font-body);
-            font-size: 1rem;
-            line-height: 1.5;
-            color: var(--text);
-            background:
-                radial-gradient(900px 500px at 100% -10%, rgba(255, 204, 0, 0.07), transparent 60%),
-                radial-gradient(700px 500px at -10% 110%, rgba(255, 204, 0, 0.04), transparent 60%),
-                var(--asphalt);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        a { color: inherit; }
-        button { font: inherit; color: inherit; }
-
-        /* Hidden until auth.js confirms the allowed account is signed in */
-        .auth-pending body > * { visibility: hidden; }
-        .auth-pending *, .auth-pending *::before, .auth-pending *::after { animation-play-state: paused !important; }
-
-        .wrap {
-            width: 100%;
-            max-width: var(--max);
-            margin: 0 auto;
-            padding-left: var(--page-pad);
-            padding-right: var(--page-pad);
-        }
-
-        /* ---------- Top bar ---------- */
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            min-width: 0;
-        }
-
-        .brand img {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            object-fit: contain;
-            background: #000;
-            box-shadow: 0 0 0 1px rgba(255, 204, 0, 0.45);
-            flex: none;
-        }
-
-        .brand-name {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1.3rem;
-            letter-spacing: 0.01em;
-            white-space: nowrap;
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .signout {
-            appearance: none;
-            border: 1px solid var(--line-strong);
-            background: transparent;
-            border-radius: 999px;
-            padding: 8px 16px;
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 0.98rem;
-            letter-spacing: 0.02em;
-            cursor: pointer;
-            transition: border-color 0.25s, color 0.25s, background-color 0.25s;
-        }
-
-        .signout:hover, .signout:focus-visible {
-            border-color: var(--yellow);
-            color: var(--yellow);
-            outline: none;
-        }
-
-        /* ---------- Hero ---------- */
-        .hero {
+            min-height: 100dvh;
             display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            align-items: end;
-            gap: 24px;
-            padding-top: clamp(20px, 5vw, 56px);
-            padding-bottom: clamp(20px, 3vw, 32px);
+            place-items: center;
+            padding: env(safe-area-inset-top, 0px) 16px env(safe-area-inset-bottom, 0px);
+            background: var(--asphalt);
+            -webkit-font-smoothing: antialiased;
         }
 
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--yellow);
-            margin-bottom: 10px;
-        }
+        /* Hidden until auth.js confirms an allowed account is signed in */
+        .auth-pending body > * { visibility: hidden; }
 
-        .eyebrow::before {
-            content: "";
-            width: 26px;
-            height: 3px;
-            border-radius: 2px;
-            background: var(--yellow);
-        }
-
-        .greeting {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: clamp(2.6rem, 7vw, 4.6rem);
-            line-height: 0.95;
-            letter-spacing: -0.005em;
-        }
-
-        .lede {
-            margin-top: 14px;
-            color: var(--muted);
-            max-width: 56ch;
-        }
-
-        .clock {
-            text-align: right;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .clock-time {
-            display: block;
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            line-height: 1;
-        }
-
-        .clock-date {
-            display: block;
-            margin-top: 6px;
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-
-        /* ---------- App grid ---------- */
         .apps {
             list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
-            gap: 16px;
-            padding-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: clamp(20px, 6vw, 48px);
         }
 
         .app {
-            position: relative;
+            width: clamp(96px, 26vw, 148px);
+            aspect-ratio: 1;
             display: grid;
-            grid-template-rows: auto 1fr auto;
-            gap: 18px;
-            height: 100%;
-            padding: 22px;
-            border-radius: var(--radius);
-            text-decoration: none;
-            background: linear-gradient(180deg, var(--asphalt-2), #141619);
+            place-items: center;
+            border-radius: 28%;
+            color: var(--yellow);
+            background: var(--asphalt-2);
             border: 1px solid var(--line);
-            overflow: hidden;
-            isolation: isolate;
-            opacity: 0;
-            transform: translateY(12px);
-            animation: rise 0.6s var(--ease-out) forwards;
-            animation-delay: calc(var(--i, 0) * 60ms + 80ms);
-            transition: border-color 0.3s var(--ease-out), background-color 0.3s, transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+            transition: background-color 0.25s var(--ease-out), color 0.25s var(--ease-out), border-color 0.25s, transform 0.3s var(--ease-out);
         }
 
-        .app::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: -1;
-            background: radial-gradient(420px 220px at 0% 0%, var(--yellow-soft), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.35s var(--ease-out);
-        }
+        .app svg { width: 46%; height: 46%; }
 
         .app:hover, .app:focus-visible {
-            border-color: rgba(255, 204, 0, 0.55);
-            transform: translateY(-3px);
-            box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.9);
-            outline: none;
-        }
-
-        .app:hover::after, .app:focus-visible::after, .app.launching::after { opacity: 1; }
-        .app:active { transform: translateY(-1px) scale(0.99); }
-        .app.launching { border-color: var(--yellow); }
-
-        .app-head {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .app-icon {
-            width: 54px;
-            height: 54px;
-            border-radius: 14px;
-            display: grid;
-            place-items: center;
-            color: var(--yellow);
-            background: rgba(255, 204, 0, 0.08);
-            box-shadow: inset 0 0 0 1px rgba(255, 204, 0, 0.28);
-            transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out), transform 0.4s var(--ease-out);
-        }
-
-        .app-icon svg { width: 28px; height: 28px; }
-
-        .app:hover .app-icon, .app:focus-visible .app-icon, .app.launching .app-icon {
-            background: var(--yellow);
-            color: #111;
-            transform: rotate(-4deg);
-        }
-
-        .app-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tag {
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 0.82rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            border: 1px solid var(--line-strong);
-            border-radius: 999px;
-            padding: 2px 10px;
-        }
-
-        kbd {
-            display: inline-grid;
-            place-items: center;
-            min-width: 26px;
-            height: 26px;
-            padding: 0 7px;
-            border-radius: 7px;
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 0.92rem;
-            color: var(--text);
-            background: var(--asphalt-3);
-            box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12);
-        }
-
-        .app-title {
-            display: block;
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1.9rem;
-            line-height: 1.05;
-            margin-bottom: 6px;
-        }
-
-        .app-desc {
-            display: block;
-            color: var(--muted);
-        }
-
-        .app-foot {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding-top: 16px;
-            border-top: 1px solid var(--line);
-            font-size: 0.9rem;
-            color: var(--dim);
-        }
-
-        .app-host {
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .app-go {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            flex: none;
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: var(--text);
-        }
-
-        .go-dot {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            border: 2px solid rgba(255, 204, 0, 0.6);
-            color: var(--yellow);
-            transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out), transform 0.4s var(--ease-out), border-color 0.3s;
-        }
-
-        .go-dot svg { width: 16px; height: 16px; }
-
-        .app:hover .go-dot, .app:focus-visible .go-dot, .app.launching .go-dot {
             background: var(--yellow);
             border-color: var(--yellow);
             color: #111;
-            transform: translateX(4px);
+            transform: translateY(-3px);
+            outline: none;
         }
 
-        /* ---------- Footer ---------- */
-        footer {
-            margin-top: auto;
-            padding-top: 8px;
-            padding-bottom: 28px;
-            color: var(--dim);
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
+        .app:active { transform: scale(0.96); }
+
+        .signout {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 0px) + 16px);
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            appearance: none;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s;
         }
 
-        .rise {
-            opacity: 0;
-            transform: translateY(12px);
-            animation: rise 0.7s var(--ease-out) forwards;
-        }
-        .rise.d1 { animation-delay: 0.05s; }
-        .rise.d2 { animation-delay: 0.15s; }
-        @keyframes rise { to { opacity: 1; transform: none; } }
+        .signout svg { width: 20px; height: 20px; }
 
-        /* ---------- Responsive ---------- */
-        @media (max-width: 720px) {
-            .hero { grid-template-columns: 1fr; align-items: start; }
-            .clock { text-align: left; order: -1; }
-            .clock-time { font-size: 1.6rem; }
-            .clock-date { margin-top: 2px; }
-            .keys-hint { display: none; }
-        }
-
-        @media (max-width: 420px) {
-            .brand-name { font-size: 1.15rem; }
-            .app { padding: 18px; }
-            .app-title { font-size: 1.7rem; }
-        }
-
-        @media (hover: none) {
-            .keys-hint, .app kbd { display: none; }
-        }
+        .signout:hover, .signout:focus-visible { color: var(--yellow); border-color: var(--yellow); outline: none; }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.001ms !important;
-                animation-delay: 0s !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.001ms !important;
-            }
+            *, *::before, *::after { transition-duration: 0.001ms !important; }
         }
     </style>
 </head>
 <body>
 
-    <header class="wrap topbar">
-        <a class="brand" href="./" aria-label="E&amp;C Courier staff tools home">
-            <img src="icon-512.png" alt="" width="40" height="40">
-            <span class="brand-name">E&amp;C Courier</span>
-        </a>
-        <div class="topbar-right">
-            <button type="button" class="signout" id="signOut">Sign out</button>
-        </div>
-    </header>
+    <button type="button" class="signout" id="signOut" aria-label="Sign out" title="Sign out">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/>
+            <path d="M10 17l-5-5 5-5M5 12h11"/>
+        </svg>
+    </button>
 
     <main>
-        <section class="wrap hero" aria-labelledby="greeting">
-            <div>
-                <p class="eyebrow rise d1">Staff tools</p>
-                <h1 class="greeting rise d1" id="greeting">Good day</h1>
-                <p class="lede rise d2">Every E&amp;C app in one place. Pick one to open it<span class="keys-hint">, or press its key</span>.</p>
-            </div>
-            <div class="clock rise d2" aria-live="off">
-                <span class="clock-time" id="clockTime"></span>
-                <span class="clock-date" id="clockDate"></span>
-            </div>
-        </section>
-
-        <section class="wrap" aria-label="Staff apps">
-            <ul class="apps" id="apps">
-                <li>
-                    <a class="app" style="--i:0" href="https://app.eandccourier.ca/requestpickup/" data-key="p">
-                        <span class="app-head">
-                            <span class="app-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 8.5 12 4 3 8.5v7L12 20l9-4.5v-7z"/>
-                                    <path d="M3 8.5 12 13l9-4.5"/>
-                                    <path d="M12 13v7"/>
-                                    <path d="m7.5 6.25 9 4.5"/>
-                                </svg>
-                            </span>
-                            <span class="app-meta"><span class="tag">Customers</span><kbd aria-hidden="true">P</kbd></span>
-                        </span>
-                        <span>
-                            <span class="app-title">Request Pickup</span>
-                            <span class="app-desc">Customers book pickups and deliveries, save their contacts, and follow each request to dispatch, with a history and printable statements.</span>
-                        </span>
-                        <span class="app-foot">
-                            <span class="app-host">/requestpickup</span>
-                            <span class="app-go">Open <span class="go-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="app" style="--i:1" href="https://app.eandccourier.ca/routehelper/" data-key="h">
-                        <span class="app-head">
-                            <span class="app-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="6" cy="19" r="2.2"/>
-                                    <path d="M8.2 19H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h6"/>
-                                    <path d="M18 9.5c-1.8-2.1-2.7-3.4-2.7-4.6a2.7 2.7 0 0 1 5.4 0c0 1.2-.9 2.5-2.7 4.6z"/>
-                                </svg>
-                            </span>
-                            <span class="app-meta"><span class="tag">Dispatch</span><kbd aria-hidden="true">H</kbd></span>
-                        </span>
-                        <span>
-                            <span class="app-title">Route Helper</span>
-                            <span class="app-desc">Build multi-stop routes of pickups and deliveries, auto-optimize the stop order, and save or share them with drivers.</span>
-                        </span>
-                        <span class="app-foot">
-                            <span class="app-host">/routehelper</span>
-                            <span class="app-go">Open <span class="go-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="app" style="--i:2" href="https://app.eandccourier.ca/RouteWatcher/" data-key="w">
-                        <span class="app-head">
-                            <span class="app-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5z"/>
-                                    <path d="M9 4v13M15 6.5v13"/>
-                                    <circle cx="15" cy="11" r="2.4" fill="currentColor" stroke="none"/>
-                                </svg>
-                            </span>
-                            <span class="app-meta"><span class="tag">Dispatch</span><kbd aria-hidden="true">W</kbd></span>
-                        </span>
-                        <span>
-                            <span class="app-title">RouteWatcher</span>
-                            <span class="app-desc">The dispatch dashboard: watch every driver live on the map from their GPS trackers, review their tracks, and compare them to the planned route.</span>
-                        </span>
-                        <span class="app-foot">
-                            <span class="app-host">/RouteWatcher</span>
-                            <span class="app-go">Open <span class="go-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="app" style="--i:3" href="https://app.eandccourier.ca/calculator/" data-key="c">
-                        <span class="app-head">
-                            <span class="app-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="5" y="3" width="14" height="18" rx="2.5"/>
-                                    <path d="M8.5 7h7"/>
-                                    <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01M8.5 15h.01M12 15h.01M15.5 15h.01M8.5 18h.01M12 18h3.5"/>
-                                </svg>
-                            </span>
-                            <span class="app-meta"><span class="tag">Dispatch</span><kbd aria-hidden="true">C</kbd></span>
-                        </span>
-                        <span>
-                            <span class="app-title">Calculator</span>
-                            <span class="app-desc">Price a shipment with the courier rate calculator, compare actual against dimensional weight box by box, and keep a log history of each calculation.</span>
-                        </span>
-                        <span class="app-foot">
-                            <span class="app-host">/calculator</span>
-                            <span class="app-go">Open <span class="go-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="app" style="--i:4" href="https://app.eandccourier.ca/timeclock/admin.html" data-key="t">
-                        <span class="app-head">
-                            <span class="app-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="13" r="8"/>
-                                    <path d="M12 9v4l2.5 2"/>
-                                    <path d="M9 2h6M12 2v3"/>
-                                </svg>
-                            </span>
-                            <span class="app-meta"><span class="tag">Staff</span><kbd aria-hidden="true">T</kbd></span>
-                        </span>
-                        <span>
-                            <span class="app-title">Time Clock</span>
-                            <span class="app-desc">Employees punch in and out and pick their vehicle for the day. The admin panel shows who's working, edits punches, sets schedules, and exports timesheets.</span>
-                        </span>
-                        <span class="app-foot">
-                            <span class="app-host">/timeclock/admin</span>
-                            <span class="app-go">Open <span class="go-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="app" style="--i:5" href="https://app.eandccourier.ca/garage/" data-key="g">
-                        <span class="app-head">
-                            <span class="app-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.8 1.8 0 0 0 2.5 2.5l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.4 2.4-2.3-.4-.4-2.3z"/>
-                                </svg>
-                            </span>
-                            <span class="app-meta"><span class="tag">Fleet</span><kbd aria-hidden="true">G</kbd></span>
-                        </span>
-                        <span>
-                            <span class="app-title">Garage</span>
-                            <span class="app-desc">One page for every vehicle: parts and bulb sizes, fluids and tires, problems drivers report, oil checks, and the check schedule.</span>
-                        </span>
-                        <span class="app-foot">
-                            <span class="app-host">/garage</span>
-                            <span class="app-go">Open <span class="go-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="app" style="--i:6" href="https://app.eandccourier.ca/developernotes/" data-key="n">
-                        <span class="app-head">
-                            <span class="app-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M6 3h9l4 4v14H6z"/>
-                                    <path d="M15 3v4h4"/>
-                                    <path d="M9 12h7M9 15.5h7M9 8.5h3"/>
-                                </svg>
-                            </span>
-                            <span class="app-meta"><span class="tag">Internal</span><kbd aria-hidden="true">N</kbd></span>
-                        </span>
-                        <span>
-                            <span class="app-title">Notes Portal</span>
-                            <span class="app-desc">The internal workspace for technical logs, system updates, and team notes.</span>
-                        </span>
-                        <span class="app-foot">
-                            <span class="app-host">/developernotes</span>
-                            <span class="app-go">Open <span class="go-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </section>
+        <ul class="apps">
+            <li>
+                <a class="app" href="https://app.eandccourier.ca/routehelper/" aria-label="Route Helper" title="Route Helper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 21.5s-7-6.2-7-11.5a7 7 0 0 1 14 0c0 5.3-7 11.5-7 11.5z"/>
+                        <circle cx="12" cy="10" r="2.6"/>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a class="app" href="https://app.eandccourier.ca/garage/" aria-label="Garage" title="Garage">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.8 1.8 0 0 0 2.5 2.5l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.4 2.4-2.3-.4-.4-2.3z"/>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a class="app" href="https://app.eandccourier.ca/timeclock/admin.html" aria-label="Time Clock" title="Time Clock">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </main>
-
-    <footer class="wrap">
-        <span>&copy; <span id="year">2026</span> E&amp;C Courier</span>
-    </footer>
-
-    <script>
-        (function () {
-            "use strict";
-
-            var TZ = "America/Winnipeg"; // Brandon, MB runs on Central Time
-            var timeEl = document.getElementById("clockTime");
-            var dateEl = document.getElementById("clockDate");
-            var yearEl = document.getElementById("year");
-            var greetEl = document.getElementById("greeting");
-
-            var timeFmt, dateFmt, yearFmt, hourFmt;
-            try {
-                timeFmt = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, hour: "numeric", minute: "2-digit", hour12: true });
-                dateFmt = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, weekday: "long", month: "long", day: "numeric" });
-                yearFmt = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric" });
-                hourFmt = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, hour: "numeric", hourCycle: "h23" });
-            } catch (e) {
-                timeFmt = new Intl.DateTimeFormat("en-CA", { hour: "numeric", minute: "2-digit", hour12: true });
-                dateFmt = new Intl.DateTimeFormat("en-CA", { weekday: "long", month: "long", day: "numeric" });
-                yearFmt = null;
-                hourFmt = null;
-            }
-
-            function tick() {
-                var now = new Date();
-                timeEl.textContent = timeFmt.format(now).replace(/\./g, "").toUpperCase();
-                dateEl.textContent = dateFmt.format(now);
-                if (yearFmt) yearEl.textContent = yearFmt.format(now);
-                var hour = hourFmt ? parseInt(hourFmt.format(now), 10) : now.getHours();
-                greetEl.textContent = hour < 5 ? "Working late" : hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
-            }
-
-            tick();
-            setTimeout(function () {
-                tick();
-                setInterval(tick, 60000);
-            }, (60 - new Date().getSeconds()) * 1000);
-
-            // Keyboard shortcuts: each app's data-key
-            var apps = {};
-            Array.prototype.forEach.call(document.querySelectorAll(".app[data-key]"), function (el) {
-                apps[el.getAttribute("data-key")] = el;
-            });
-
-            document.addEventListener("keydown", function (e) {
-                if (document.documentElement.classList.contains("auth-pending")) return;
-                if (e.defaultPrevented || e.repeat || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
-                var t = e.target;
-                if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-                var app = apps[(e.key || "").toLowerCase()];
-                if (!app) return;
-                e.preventDefault();
-                app.classList.add("launching");
-                app.focus({ preventScroll: true });
-                setTimeout(function () { window.location.href = app.href; }, 220);
-            });
-
-            // Clear the launch state if the page is restored from the back/forward cache
-            window.addEventListener("pageshow", function () {
-                Object.keys(apps).forEach(function (k) { apps[k].classList.remove("launching"); });
-            });
-        })();
-    </script>
 
     <script type="module">
         const LOGIN = "login/";
